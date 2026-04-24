@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>ParkIQ Riverton — Parking Data Ecosystem</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@500;600;700;800&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+
+<!-- Loading screen — shown while CSVs load -->
+<div id="loader"></div>
+
+<!-- App — shown after data loads -->
+<div id="app" style="display:none;">
+
+  <!-- Role bar -->
+  <div id="rolebar">
+    <div class="rb-brand">
+      <div class="rb-icon"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg></div>
+      <span class="rb-name">ParkIQ</span><span class="rb-city">Riverton</span>
+    </div>
+    <div class="rb-sep"></div>
+    <span class="rb-label">Viewing as:</span>
+    <div class="rb-tabs">
+      <button class="rb-tab active" onclick="setRole('admin',this)">🏛 City Admin</button>
+      <button class="rb-tab" onclick="setRole('manager',this)">📊 Ops Manager</button>
+      <button class="rb-tab" onclick="setRole('staff',this)">📋 Permit Staff</button>
+      <button class="rb-tab" onclick="setRole('officer',this)">🚔 Officer</button>
+    </div>
+    <div class="rb-right">
+      <div class="rb-sync"><span class="rb-dot"></span>Live</div>
+      <div class="rb-alert" id="rbAlert" onclick="go('sync')">⚠ Loading…</div>
+    </div>
+  </div>
+
+  <!-- Layout -->
+  <div id="layout">
+    <div id="sidebar">
+      <div class="sb-user">
+        <div class="sb-avatar" id="sbAv">CA</div>
+        <div><div class="sb-uname" id="sbName">City Administrator</div><div class="sb-dept">Riverton Parking</div></div>
+      </div>
+      <nav id="sbnav"></nav>
+    </div>
+    <div id="main">
+      <div id="topbar">
+        <div class="tb-left">
+          <span class="tb-icon" id="tbIcon">📊</span>
+          <div><div class="tb-title" id="tbTitle">Dashboard</div><div class="tb-sub" id="tbSub">Loading…</div></div>
+        </div>
+        <div class="tb-right">
+          <button class="btn-action" id="topAction" style="display:none" onclick="topAct()"></button>
+        </div>
+      </div>
+      <div id="content"></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Modal -->
+<div id="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <div class="modal-head"><span id="modalTitle"></span><button onclick="closeModal()">✕</button></div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<div id="toast"></div>
+<script src="app.js"></script>
+</body>
+</html>
